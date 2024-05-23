@@ -30,10 +30,6 @@ body {
     cursor: pointer;
 }
 
-.button:hover {
-    background-color: #45a049;
-}
-
 .start {
     background-color: #4CAF50;
 }
