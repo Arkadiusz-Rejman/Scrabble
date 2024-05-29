@@ -1,4 +1,18 @@
- .tile {
+.ScrabbleBoard{
+   td{
+       width: 30px;
+       height: 30px;
+       border: 1px solid black;
+   }
+   table {
+        border: 1px solid black;
+   }
+    input{
+        width: 29px;
+        height: 29px;
+    }
+}
+.tile {
             position: relative;
             display: inline-block;
             width: 100px;
@@ -18,3 +32,6 @@
         .tile.highlighted {
             transform: translateY(-20px);
         }
+
+
+

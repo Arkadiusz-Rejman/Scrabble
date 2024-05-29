@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Scrabble Game</title>
-    <link rel="stylesheet" type="text/css" href="playerSelection.css">
+    <link rel="stylesheet" type="text/css" href="CSS/playerSelection.css">
 
         <script>
             function updatePlayerFields() {
