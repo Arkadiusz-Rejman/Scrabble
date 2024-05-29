@@ -7,25 +7,22 @@
    table {
         border: 1px solid black;
    }
-    input{
-        width: 29px;
-        height: 29px;
-    }
 }
 .tile {
             position: relative;
             display: inline-block;
-            width: 100px;
-            height: 100px;
+            width: 30px;
+            height: 30px;
             text-align: center;
-            line-height: 100px;
+            line-height: 30px;
             transition: transform 0.3s ease;
             cursor: pointer;
+
         }
         .tile span {
             position: absolute;
-            bottom: 35px;
-            right: 5px;
+            bottom: 5px;
+            right: -3px;
             padding: 2px 5px;
             border-radius: 3px;
         }
@@ -34,4 +31,9 @@
         }
 
 
-
+.cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid gray;
+    position: relative;
+}

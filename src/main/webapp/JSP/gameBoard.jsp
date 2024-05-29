@@ -10,29 +10,29 @@
     <script type="text/javascript" src="JS/gameBoard.js"></script>
 </head>
 <body>
-    <h1>Losowe kafelki</h1>
-    <div>
-        <% List<Tile> tiles = (List<Tile>) request.getAttribute("tiles"); %>
-        <% for (Tile tile : tiles) { %>
-            <div class="tile" style="background-image: url('<%= tile.getBackgroundImagePath() %>');" onclick="highlightTile(this)">
-                <%= tile.getCharacter() %>
-                <span><%= tile.getPoints() %></span>
-            </div>
-        <% } %>
+<h1>Losowe kafelki</h1>
+<div id="tile-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <% List<Tile> tiles = (List<Tile>) request.getAttribute("tiles"); %>
+    <% for (int i = 0; i < tiles.size(); i++) { %>
+    <div class="tile" id="tile_<%= i %>" style="background-image: url('<%= tiles.get(i).getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)">
+        <%= tiles.get(i).getCharacter() %>
+        <span><%= tiles.get(i).getPoints() %></span>
     </div>
-    <div class="ScrabbleBoard">
-        <table>
-            <% for (int i = 0; i < 15; i++) { %>
-            <tr>
-                <% for (int j = 0; j < 15; j++) { %>
-                <td>
-                    <input type="text" name="field_<%=i %>_<%=j %>" id="field_<%=i %>_<%=j %>"/>
-                </td>
-                <% } %>
-            </tr>
+    <% } %>
+</div>
+<div class="ScrabbleBoard">
+    <table>
+        <% for (int i = 0; i < 15; i++) { %>
+        <tr>
+            <% for (int j = 0; j < 15; j++) { %>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="cell_<%= i %>_<%= j %>" class="cell"></div>
+            </td>
             <% } %>
-        </table>
-        <button onclick="">Submit Moves</button>
-    </div>
+        </tr>
+        <% } %>
+    </table>
+    <button onclick="">Submit Moves</button>
+</div>
 </body>
 </html>
