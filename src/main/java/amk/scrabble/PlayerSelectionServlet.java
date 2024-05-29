@@ -2,6 +2,7 @@ package amk.scrabble;
 
 import amk.scrabble.model.GameSession;
 import amk.scrabble.model.Player;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/playerSelection")
+@WebServlet(name = "playerSelectionServlet", urlPatterns = "/playerSelection")
 public class PlayerSelectionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int playerCount = Integer.parseInt(request.getParameter("playerCount"));
@@ -32,5 +33,10 @@ public class PlayerSelectionServlet extends HttpServlet {
         drawTilesServlet.doGet(request, response);
 
         response.sendRedirect("gameBoard.jsp");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/playerSelection.jsp").forward(req,resp);
     }
 }
