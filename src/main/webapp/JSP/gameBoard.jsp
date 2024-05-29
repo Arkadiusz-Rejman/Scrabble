@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Scrabble</title>
     <link rel="stylesheet" type="text/css" href="CSS/gameBoard.css">
+    <script type="text/javascript" src="JS/gameBoard.js"></script>
 </head>
 <body>
     <h1>Losowe kafelki</h1>
@@ -33,15 +34,5 @@
         </table>
         <button onclick="">Submit Moves</button>
     </div>
-    <script>
-        function highlightTile(element) {
-
-            document.querySelectorAll('.tile').forEach(tile => {
-                tile.classList.remove('highlighted');
-            });
-
-            element.classList.add('highlighted');
-        }
-    </script>
 </body>
 </html>
