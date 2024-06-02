@@ -37,3 +37,8 @@
     border: 1px solid gray;
     position: relative;
 }
+
+#timer {
+    font-size: 24px;
+    font-weight: bold;
+}

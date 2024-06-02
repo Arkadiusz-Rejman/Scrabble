@@ -40,3 +40,40 @@ function drop(event) {
 
     target.appendChild(tile);
 }
+
+window.onload = function() {
+    var timeLeft = 10;
+    var timerElement = document.getElementById("timer");
+    var playerElement = document.getElementById("player");
+
+    function startTimer() {
+        var timer = setInterval(function() {
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                timeLeft = 10;
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            playerElement.innerHTML = xhr.responseText; // Aktualizuj div na odpowiedź z serwera
+                        } else {
+                            console.error('Nie udało się pobrać wartości gracza');
+                        }
+                    }
+                };
+
+                xhr.open("GET", "turnManagerServlet", true); // Ustawienie adresu URL servleta
+                xhr.send();
+
+                startTimer();
+            } else {
+                timerElement.innerHTML = timeLeft + " seconds left";
+            }
+            timeLeft -= 1;
+        }, 1000);
+    }
+
+    startTimer();
+}

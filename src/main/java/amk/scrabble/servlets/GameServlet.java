@@ -1,5 +1,6 @@
 package amk.scrabble.servlets;
 
+import amk.scrabble.model.GameSession;
 import amk.scrabble.model.Tile;
 import amk.scrabble.model.TileSack;
 import jakarta.servlet.*;
@@ -13,9 +14,10 @@ import java.util.List;
 public class GameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TileSack tileSack = new TileSack();
-        List<Tile> tiles = tileSack.drawTiles(8);
-        request.setAttribute("tiles", tiles);
+
+
+
+        request.setAttribute("tiles", GameSession.get().getPlayerTurn().getDock());
         getServletContext().getRequestDispatcher("/JSP/gameBoard.jsp").forward(request,response);
     }
 

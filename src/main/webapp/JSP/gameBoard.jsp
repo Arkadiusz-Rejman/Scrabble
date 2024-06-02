@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="amk.scrabble.model.Tile" %>
+<%@ page import="amk.scrabble.model.GameSession" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,15 @@
     <script type="text/javascript" src="JS/gameBoard.js"></script>
 </head>
 <body>
-<h1>Losowe kafelki</h1>
+<h1>SKRABLE!</h1>
+
+<!-- TURY -->
+<div id="timer">30 seconds left</div>
+<div id="player">
+    Player <%= GameSession.get().getPlayerTurn().getName() %> turn
+</div>
+
+<!-- SKRABLE -->
 <div id="tile-container" ondrop="drop(event)" ondragover="allowDrop(event)">
     <% List<Tile> tiles = (List<Tile>) request.getAttribute("tiles"); %>
     <% for (int i = 0; i < tiles.size(); i++) { %>
@@ -20,6 +29,9 @@
     </div>
     <% } %>
 </div>
+
+
+<!-- PLANSZA -->
 <div class="ScrabbleBoard">
     <table>
         <% for (int i = 0; i < 15; i++) { %>
