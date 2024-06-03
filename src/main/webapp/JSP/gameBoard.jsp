@@ -16,16 +16,16 @@
 <!-- TURY -->
 <div id="timer">30 seconds left</div>
 <div id="player">
-    Player <%= GameSession.get().getPlayerTurn().getName() %> turn
+    Player <%= GameSession.get().getTurn().getPlayerTurn().getName() %> turn
 </div>
 
 <!-- SKRABLE -->
 <div id="tile-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <% List<Tile> tiles = (List<Tile>) request.getAttribute("tiles"); %>
-    <% for (int i = 0; i < tiles.size(); i++) { %>
-    <div class="tile" id="tile_<%= i %>" style="background-image: url('<%= tiles.get(i).getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)">
-        <%= tiles.get(i).getCharacter() %>
-        <span><%= tiles.get(i).getPoints() %></span>
+    <% Tile[] tiles = (Tile[]) request.getAttribute("tiles"); %>
+    <% for (int i = 0; i < tiles.length; i++) { %>
+    <div class="tile" id="tile_<%= i %>" style="background-image: url('<%= tiles[i].getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)" data-index="<%= i %>">
+        <%= tiles[i].getCharacter() %>
+        <span><%= tiles[i].getPoints() %></span>
     </div>
     <% } %>
 </div>

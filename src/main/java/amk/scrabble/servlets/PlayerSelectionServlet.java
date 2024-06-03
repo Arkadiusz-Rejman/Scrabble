@@ -3,6 +3,7 @@ package amk.scrabble.servlets;
 import amk.scrabble.model.GameSession;
 import amk.scrabble.model.Player;
 import amk.scrabble.model.TileSack;
+import amk.scrabble.model.Turn;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,7 +29,8 @@ public class PlayerSelectionServlet extends HttpServlet {
         }
 
 
-        GameSession.get().setPlayerTurn(playerList.get(0));
+
+        GameSession.get().setTurn(new Turn(playerList.get(0)));
         GameSession.get().setTileSack(new TileSack());
         playerList.forEach(player -> player.setDock(GameSession.get().getTileSack().drawTiles(8)));
         GameSession.get().setPlayers(playerList);

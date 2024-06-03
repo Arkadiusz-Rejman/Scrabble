@@ -7,16 +7,15 @@ public class Player {
 
 
     String name;
-    List<Tile> dock;
+    Tile[] dock = new Tile[8];
     Tile selectedTile;
 
 
     public Player(String name) {
-        dock = new ArrayList<>();
         this.name = name;
     }
 
-    public List<Tile> getDock() {
+    public Tile[] getDock() {
         return dock;
     }
 
@@ -24,12 +23,30 @@ public class Player {
         return selectedTile;
     }
 
-    public void setDock(List<Tile> tiles) { this.dock = tiles; }
+    public void setDock(Tile[] tiles) { this.dock = tiles; }
     public void selectTile(Tile tile) { this.selectedTile = tile; }
-    public void addTilesToDock(List<Tile> tiles) { this.dock.addAll(tiles); }
-    public void removeTilesFromDock(List<Tile> tiles) { this.dock.removeAll(tiles); }
+
     public String getName() {
         return name;
+    }
+
+    public int getMissingTiles(){
+        int missing = 0;
+        for (Tile tile : dock) {
+            if (tile == null) missing++;
+        }
+        return missing;
+    }
+
+    public void fillDock(Tile[] tiles) {
+        int fillingTileIndex = 0;
+        for(int i =0; i<dock.length; i++){
+            if (dock[i] == null){
+                dock[i] = tiles[fillingTileIndex];
+                fillingTileIndex++;
+            }
+        }
+
     }
 
     public void setName(String name) {

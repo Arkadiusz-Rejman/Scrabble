@@ -1,6 +1,7 @@
 function dragStart(event) {
     console.log("dragStart: ", event.target.id);
-    event.dataTransfer.setData("text/plain", event.target.id);
+    event.dataTransfer.setData("application/tile-id", event.target.id);
+    event.dataTransfer.setData("application/tile-index", event.target.getAttribute("data-index"));
 }
 
 function allowDrop(event) {
@@ -10,9 +11,12 @@ function allowDrop(event) {
 
 function drop(event) {
     event.preventDefault();
-    var tileId = event.dataTransfer.getData("text/plain");
+    var tileId = event.dataTransfer.getData("application/tile-id");
     console.log("drop: tileId = ", tileId);
     var tile = document.getElementById(tileId);
+
+     var tileIndex = event.dataTransfer.getData("application/tile-index");
+
 
     if (!tile) {
         console.error("Tile not found: ", tileId);
@@ -38,11 +42,31 @@ function drop(event) {
         tile.parentNode.removeChild(tile);
     }
 
+
     target.appendChild(tile);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('Success:', xhr.responseText);
+            } else {
+                console.error('Failed to send tileIndex');
+            }
+        }
+    };
+
+    xhr.open("POST", "moveTileServlet", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("tileIndex=" + encodeURIComponent(tileIndex));
+
+
 }
 
+//Timer tury dla gracza
+
 window.onload = function() {
-    var timeLeft = 10;
+    var timeLeft = 15;
     var timerElement = document.getElementById("timer");
     var playerElement = document.getElementById("player");
 
@@ -50,21 +74,21 @@ window.onload = function() {
         var timer = setInterval(function() {
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                timeLeft = 10;
+                timeLeft = 15;
 
                 var xhr = new XMLHttpRequest();
 
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
-                            playerElement.innerHTML = xhr.responseText; // Aktualizuj div na odpowiedź z serwera
+                            playerElement.innerHTML = xhr.responseText;
                         } else {
                             console.error('Nie udało się pobrać wartości gracza');
                         }
                     }
                 };
 
-                xhr.open("GET", "turnManagerServlet", true); // Ustawienie adresu URL servleta
+                xhr.open("GET", "turnManagerServlet", true);
                 xhr.send();
 
                 startTimer();

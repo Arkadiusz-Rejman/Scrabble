@@ -7,8 +7,8 @@ public class GameSession {
 
     private List<Player> players;
 //    private GameBoard gameBoard;
+    private Turn turn;
     private TileSack tileSack;
-    private Player playerTurn;
     private static GameSession gameSession;
 
     private GameSession(){}
@@ -33,15 +33,15 @@ public class GameSession {
 
     public TileSack getTileSack() { return gameSession.tileSack; }
     public void setTileSack(TileSack tileSack) { gameSession.tileSack = tileSack; }
+    public Turn getTurn() { return gameSession.turn; }
 
-    public Player getPlayerTurn() { return gameSession.playerTurn; }
-    public void setPlayerTurn(Player playerTurn) { gameSession.playerTurn = playerTurn; }
+    public void setTurn(Turn turn) { gameSession.turn = turn; }
     public void changeTurn() {
-        int actuallPlayerTurnIndex = gameSession.players.indexOf(gameSession.playerTurn);
+        int actuallPlayerTurnIndex = gameSession.players.indexOf(gameSession.turn.getPlayerTurn());
         if(actuallPlayerTurnIndex == gameSession.players.size() - 1){
-            gameSession.playerTurn = gameSession.players.get(0);
+            gameSession.setTurn(new Turn(gameSession.players.get(0)));
         }else {
-            gameSession.playerTurn = gameSession.players.get(actuallPlayerTurnIndex + 1);
+            gameSession.setTurn(new Turn(gameSession.players.get(actuallPlayerTurnIndex + 1)));
         }
 
     }

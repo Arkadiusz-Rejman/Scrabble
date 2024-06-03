@@ -17,7 +17,7 @@ public class GameServlet extends HttpServlet {
 
 
 
-        request.setAttribute("tiles", GameSession.get().getPlayerTurn().getDock());
+        request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
         getServletContext().getRequestDispatcher("/JSP/gameBoard.jsp").forward(request,response);
     }
 

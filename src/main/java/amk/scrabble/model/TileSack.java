@@ -43,17 +43,15 @@ public class TileSack {
         tiles.add(new Tile('Ź', 9));
     }
 
-    public List<Tile> drawTiles(int amount){
+    public Tile[] drawTiles(int amount){
 
-        List<Tile> drawnTiles = new ArrayList<>();
+        Tile[] drawnTiles = new Tile[amount];
         Random random = new Random();
 
-        for(int i=0; i<amount; i++){
+        for(int i = 0; i < amount; i++){
             int randomIndex = random.nextInt(tiles.size());
-            Tile tile = tiles.get(randomIndex);
+            drawnTiles[i] = tiles.get(randomIndex);
             tiles.remove(randomIndex);
-
-            drawnTiles.add(tile);
         }
 
         return drawnTiles;
