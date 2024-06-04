@@ -1,7 +1,6 @@
 package amk.scrabble.servlets;
 
 import amk.scrabble.model.GameSession;
-import amk.scrabble.model.Tile;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @WebServlet(name = "moveTileServlet", urlPatterns = "/moveTileServlet")
 public class MoveTileServlet extends HttpServlet {
@@ -22,16 +20,17 @@ public class MoveTileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         String tileIndexString = req.getParameter("tileIndex");
-        int tileIndex = Integer.parseInt(tileIndexString);
+        String targetId = req.getParameter("targetID");
 
-        GameSession.get().getTurn().getPlayerTurn().getDock()[tileIndex] = null;
+        boolean isBoardTarget = !targetId.startsWith("cell_20");
+        Integer tileIndex = Integer.parseInt(tileIndexString);
 
-        System.out.println(Arrays.toString(GameSession.get().getTurn().getPlayerTurn().getDock()));
-
-
-
+        if(isBoardTarget) {
+            if(!GameSession.get().getTurn().getTilesIndexesToRemove().contains(tileIndex))
+                GameSession.get().getTurn().getTilesIndexesToRemove().add(tileIndex);
+        }
+        else GameSession.get().getTurn().getTilesIndexesToRemove().remove(tileIndex);
 
 
         // Send a simple text response back

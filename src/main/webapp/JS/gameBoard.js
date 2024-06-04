@@ -22,6 +22,10 @@ function drop(event) {
     }
 
     var target = event.target;
+    var targetId = target.id;
+
+
+
     console.log("drop: initial target = ", target);
 
     while (target && !target.classList.contains('cell') && target.id !== 'tile-container') {
@@ -56,7 +60,9 @@ function drop(event) {
 
     xhr.open("POST", "moveTileServlet", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("tileIndex=" + encodeURIComponent(tileIndex));
+    xhr.send("tileIndex=" + encodeURIComponent(tileIndex) + "&targetID=" + encodeURIComponent(targetId));
+
+
 
 
 }

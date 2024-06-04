@@ -6,9 +6,9 @@ import java.util.List;
 public class Player {
 
 
-    String name;
-    Tile[] dock = new Tile[8];
-    Tile selectedTile;
+    private String name;
+    private Tile[] dock = new Tile[8];
+    private Tile selectedTile;
 
 
     public Player(String name) {

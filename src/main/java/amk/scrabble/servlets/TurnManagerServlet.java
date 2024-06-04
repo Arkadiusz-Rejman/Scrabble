@@ -10,7 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @WebServlet(name = "turnManagerServlet", urlPatterns = "/turnManagerServlet")
 public class TurnManagerServlet extends HttpServlet {
@@ -20,12 +22,19 @@ public class TurnManagerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Player previousPlayer = GameSession.get().getTurn().getPlayerTurn();
+        List<Integer> indexesToRemove = new ArrayList<>(GameSession.get().getTurn().getTilesIndexesToRemove());
+
+        for(int index : indexesToRemove) previousPlayer.getDock()[index] = null;
+
+        System.out.println("Dock before Fill: " + Arrays.toString(previousPlayer.getDock()));
+
+
         int missingTiles = previousPlayer.getMissingTiles();
         Tile[] newTiles = GameSession.get().getTileSack().drawTiles(missingTiles);
         previousPlayer.fillDock(newTiles);
 
 
-        System.out.println(" previous player dock: " + Arrays.toString(previousPlayer.getDock()));
+        System.out.println("Dock after Fill: " + Arrays.toString(previousPlayer.getDock()));
         GameSession.get().changeTurn();
 
 

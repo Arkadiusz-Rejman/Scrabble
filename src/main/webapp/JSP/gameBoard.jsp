@@ -19,12 +19,12 @@
     Player <%= GameSession.get().getTurn().getPlayerTurn().getName() %> turn
 </div>
 
-<!-- SKRABLE -->
+<!-- SKRABLE -->`
 <div class="TileSack">
     <% Tile[] tiles = (Tile[]) request.getAttribute("tiles"); %>
     <table>
         <tr>
-            <% for (int j = 0; j < 8; j++) { %>
+            <% for (int j = 0; j < tiles.length; j++) { %>
             <td ondrop="drop(event)" ondragover="allowDrop(event)">
                 <div id="cell_<%= 20 %>_<%= j %>" class="cell">
                     <div class="tile" id="tile_<%= j %>" style="background-image: url('<%= tiles[j].getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)" data-index="<%= j %>">
