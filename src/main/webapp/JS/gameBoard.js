@@ -14,9 +14,7 @@ function drop(event) {
     var tileId = event.dataTransfer.getData("application/tile-id");
     console.log("drop: tileId = ", tileId);
     var tile = document.getElementById(tileId);
-
-     var tileIndex = event.dataTransfer.getData("application/tile-index");
-
+    var tileIndex = event.dataTransfer.getData("application/tile-index");
 
     if (!tile) {
         console.error("Tile not found: ", tileId);

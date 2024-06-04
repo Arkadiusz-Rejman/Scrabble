@@ -21,6 +21,8 @@ public class MoveTileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
         String tileIndexString = req.getParameter("tileIndex");
         int tileIndex = Integer.parseInt(tileIndexString);
 

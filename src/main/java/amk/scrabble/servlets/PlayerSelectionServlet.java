@@ -41,6 +41,7 @@ public class PlayerSelectionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         getServletContext().getRequestDispatcher("/JSP/playerSelection.jsp").forward(req,resp);
     }
 }

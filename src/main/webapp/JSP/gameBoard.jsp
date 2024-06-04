@@ -20,14 +20,23 @@
 </div>
 
 <!-- SKRABLE -->
-<div id="tile-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+<div class="TileSack">
     <% Tile[] tiles = (Tile[]) request.getAttribute("tiles"); %>
-    <% for (int i = 0; i < tiles.length; i++) { %>
-    <div class="tile" id="tile_<%= i %>" style="background-image: url('<%= tiles[i].getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)" data-index="<%= i %>">
-        <%= tiles[i].getCharacter() %>
-        <span><%= tiles[i].getPoints() %></span>
-    </div>
-    <% } %>
+    <table>
+        <tr>
+            <% for (int j = 0; j < 8; j++) { %>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="cell_<%= 20 %>_<%= j %>" class="cell">
+                    <div class="tile" id="tile_<%= j %>" style="background-image: url('<%= tiles[j].getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)" data-index="<%= j %>">
+                        <%= tiles[j].getCharacter() %>
+                        <span><%= tiles[j].getPoints() %></span>
+                    </div>
+                </div>
+            </td>
+            <% } %>
+        </tr>
+    </table>
+    <button onclick="">Submit Moves</button>
 </div>
 
 

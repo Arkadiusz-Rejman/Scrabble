@@ -7,7 +7,7 @@ public class Tile {
 
     public Tile(char character, int points){
         this.character = character;
-        this.backgroundImagePath = "tile.png";
+        this.backgroundImagePath = "images/tile.png";
         this.points = points;
     }
 
@@ -33,5 +33,10 @@ public class Tile {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    @Override
+    public String toString() {
+        return " " + character;
     }
 }

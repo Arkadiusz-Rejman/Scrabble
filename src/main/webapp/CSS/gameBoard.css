@@ -8,6 +8,18 @@
         border: 1px solid black;
    }
 }
+
+.TileSack {
+    td {
+        width: 30px;
+        height: 30px;
+        border: 1px solid black;
+    }
+
+    table {
+        border: 1px solid black;
+    }
+}
 .tile {
             position: relative;
             display: inline-block;

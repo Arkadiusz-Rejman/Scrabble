@@ -14,9 +14,6 @@ import java.util.List;
 public class GameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-
         request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
         getServletContext().getRequestDispatcher("/JSP/gameBoard.jsp").forward(request,response);
     }
