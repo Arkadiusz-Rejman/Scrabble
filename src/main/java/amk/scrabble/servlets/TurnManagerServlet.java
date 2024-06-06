@@ -37,8 +37,13 @@ public class TurnManagerServlet extends HttpServlet {
         System.out.println("Dock after Fill: " + Arrays.toString(previousPlayer.getDock()));
         GameSession.get().changeTurn();
 
+        request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
+        request.getRequestDispatcher("/JSP/gameBoard.jsp").forward(request, response);
 
         response.setContentType("text/plain");
         response.getWriter().write("Player " + GameSession.get().getTurn().getPlayerTurn().getName() + " turn");
+
+
+
     }
 }

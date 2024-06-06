@@ -9,6 +9,7 @@
     <title>Scrabble</title>
     <link rel="stylesheet" type="text/css" href="CSS/gameBoard.css">
     <script type="text/javascript" src="JS/gameBoard.js"></script>
+    <meta http-equiv="refresh" content="16">
 </head>
 <body>
 <h1>SKRABLE!</h1>
@@ -36,7 +37,7 @@
             <% } %>
         </tr>
     </table>
-    <button onclick="">Submit Moves</button>
+    <button onclick="refreshPage()">Submit Moves</button>
 </div>
 
 
@@ -53,7 +54,31 @@
         </tr>
         <% } %>
     </table>
-    <button onclick="">Submit Moves</button>
+    <button onclick="refreshPage()">Submit Moves</button>
 </div>
 </body>
 </html>
+
+
+<%--Chuj wie dlaczego nie działa jak wrzucam do js i wywołuje tutaj XD--%>
+<script>
+    function refreshPage(){
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    playerElement.innerHTML = xhr.responseText;
+                } else {
+                    console.error('Nie udało się pobrać wartości gracza');
+                }
+            }
+        };
+
+        xhr.open("GET", "turnManagerServlet", true);
+        xhr.send();
+
+        location.reload();
+    }
+</script>

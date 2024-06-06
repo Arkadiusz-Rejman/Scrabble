@@ -80,22 +80,9 @@ window.onload = function() {
                 clearInterval(timer);
                 timeLeft = 15;
 
-                var xhr = new XMLHttpRequest();
-
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            playerElement.innerHTML = xhr.responseText;
-                        } else {
-                            console.error('Nie udało się pobrać wartości gracza');
-                        }
-                    }
-                };
-
-                xhr.open("GET", "turnManagerServlet", true);
-                xhr.send();
-
+                loadTurnManager()
                 startTimer();
+
             } else {
                 timerElement.innerHTML = timeLeft + " seconds left";
             }
@@ -105,3 +92,25 @@ window.onload = function() {
 
     startTimer();
 }
+
+function loadTurnManager(){
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                playerElement.innerHTML = xhr.responseText;
+            } else {
+                console.error('Nie udało się pobrać wartości gracza');
+            }
+        }
+    };
+
+    xhr.open("GET", "turnManagerServlet", true);
+    xhr.send();
+}
+
+
+
+
+
