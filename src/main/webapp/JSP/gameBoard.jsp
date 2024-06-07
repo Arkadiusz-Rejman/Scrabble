@@ -20,7 +20,7 @@
     Player <%= GameSession.get().getTurn().getPlayerTurn().getName() %> turn
 </div>
 
-<!-- SKRABLE -->`
+<!-- SKRABLE -->
 <div class="TileSack">
     <% Tile[] tiles = (Tile[]) request.getAttribute("tiles"); %>
     <table>
@@ -59,26 +59,3 @@
 </body>
 </html>
 
-
-<%--Chuj wie dlaczego nie działa jak wrzucam do js i wywołuje tutaj XD--%>
-<script>
-    function refreshPage(){
-
-        var xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    playerElement.innerHTML = xhr.responseText;
-                } else {
-                    console.error('Nie udało się pobrać wartości gracza');
-                }
-            }
-        };
-
-        xhr.open("GET", "turnManagerServlet", true);
-        xhr.send();
-
-        location.reload();
-    }
-</script>
