@@ -11,7 +11,9 @@ import java.io.IOException;
 public class GameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
+        request.setAttribute("gameBoard", GameSession.get().getGameBoard());
         getServletContext().getRequestDispatcher("/JSP/gameBoard.jsp").forward(request,response);
     }
 

@@ -3,6 +3,7 @@ package amk.scrabble.servlets;
 import amk.scrabble.model.GameSession;
 import amk.scrabble.model.Player;
 import amk.scrabble.model.Tile;
+import amk.scrabble.utils.IndexesHolder;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,23 +22,38 @@ public class TurnManagerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //WCZYTANIE DANYCH DO PRZETWORZENIA
         Player previousPlayer = GameSession.get().getTurn().getPlayerTurn();
         List<Integer> indexesToRemove = new ArrayList<>(GameSession.get().getTurn().getTilesIndexesToRemove());
+        List<IndexesHolder> boardIndexesToAdd = new ArrayList<>(GameSession.get().getTurn().getBoardIndexesToAdd());
+        //
 
+        //WCZYTYWANIE PRZENIESIONYCH SKRABLI DO GAME BOARD
+        for(IndexesHolder indexesHolder : boardIndexesToAdd) {
+            Tile tile = previousPlayer.getDock()[indexesHolder.getStoredIndex()];
+            GameSession.get().getGameBoard().getBoardField(indexesHolder.getI1(), indexesHolder.getI2()).setTileOnField(tile);
+        }
+
+        GameSession.get().getTurn().calculateScore();
+
+        //USUWANIE SKRABLI Z DOKU GRACZA
         for(int index : indexesToRemove) previousPlayer.getDock()[index] = null;
 
-        System.out.println("Dock before Fill: " + Arrays.toString(previousPlayer.getDock()));
-
-
+        //LOSOWANIE NOWYCH TILES
         int missingTiles = previousPlayer.getMissingTiles();
         Tile[] newTiles = GameSession.get().getTileSack().drawTiles(missingTiles);
         previousPlayer.fillDock(newTiles);
 
 
-        System.out.println("Dock after Fill: " + Arrays.toString(previousPlayer.getDock()));
+
+        //ZMIANA TURY (NA KONCU)
         GameSession.get().changeTurn();
 
+
+
+        //PRZESYLANIE DANYCH DO JSP
         request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
+        request.setAttribute("gameBoard", GameSession.get().getGameBoard());
         request.getRequestDispatcher("/JSP/gameBoard.jsp").forward(request, response);
 
         response.setContentType("text/plain");

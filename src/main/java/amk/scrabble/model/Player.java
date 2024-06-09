@@ -8,7 +8,7 @@ public class Player {
 
     private String name;
     private Tile[] dock = new Tile[8];
-    private Tile selectedTile;
+    private Tile selectedTile; //Tego nie uzywam?
 
 
     public Player(String name) {

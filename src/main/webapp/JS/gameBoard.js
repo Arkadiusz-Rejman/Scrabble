@@ -26,6 +26,8 @@ function drop(event) {
 
 
 
+
+
     console.log("drop: initial target = ", target);
 
     while (target && !target.classList.contains('cell') && target.id !== 'tile-container') {
@@ -40,12 +42,24 @@ function drop(event) {
         return;
     }
 
+    if(target.children.length > 0){
+        alert("already occupied")
+        return;
+    }
+
+    let startCell = document.getElementById("cell_7_7");
+    if(startCell && startCell.children.length === 0 && targetId !== "cell_7_7"){
+        alert("First move - you have to start at the middle");
+        return;
+    }
+
     if (tile.parentNode) {
         tile.parentNode.removeChild(tile);
     }
 
 
     target.appendChild(tile);
+
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {

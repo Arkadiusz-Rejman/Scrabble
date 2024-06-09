@@ -6,7 +6,7 @@ import java.util.List;
 public class GameSession {
 
     private List<Player> players;
-//    private GameBoard gameBoard;
+    private GameBoard gameBoard;
     private Turn turn;
     private TileSack tileSack;
     private static GameSession gameSession;
@@ -28,8 +28,8 @@ public class GameSession {
         gameSession.players = players;
     }
 
-//    public GameBoard getGameBoard(){ return gameSession.gameBoard; }
-//    public void setGameBoard(GameBoard gameBoard) { gameSession.gameBoard = gameBoard; }
+    public GameBoard getGameBoard(){ return gameSession.gameBoard; }
+    public void setGameBoard(GameBoard gameBoard) { gameSession.gameBoard = gameBoard; }
 
     public TileSack getTileSack() { return gameSession.tileSack; }
     public void setTileSack(TileSack tileSack) { gameSession.tileSack = tileSack; }

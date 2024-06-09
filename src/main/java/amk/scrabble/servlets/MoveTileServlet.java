@@ -1,6 +1,7 @@
 package amk.scrabble.servlets;
 
 import amk.scrabble.model.GameSession;
+import amk.scrabble.utils.IndexesHolder;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,14 +24,30 @@ public class MoveTileServlet extends HttpServlet {
         String tileIndexString = req.getParameter("tileIndex");
         String targetId = req.getParameter("targetID");
 
+//        System.out.println(tileIndexString);
+
+
         boolean isBoardTarget = !targetId.startsWith("cell_20");
         Integer tileIndex = Integer.parseInt(tileIndexString);
 
+        GameSession.get().getTurn().getBoardIndexesToAdd().removeIf(indexesHolder1 -> indexesHolder1.getStoredIndex() == tileIndex);
+
         if(isBoardTarget) {
-            if(!GameSession.get().getTurn().getTilesIndexesToRemove().contains(tileIndex))
+            if(!GameSession.get().getTurn().getTilesIndexesToRemove().contains(tileIndex)){
                 GameSession.get().getTurn().getTilesIndexesToRemove().add(tileIndex);
+            }
+
+            String[] parts = targetId.split("_");
+            int index1 = Integer.parseInt(parts[1]);
+            int index2 = Integer.parseInt(parts[2]);
+            IndexesHolder indexesHolder = new IndexesHolder(index1, index2, tileIndex);
+            GameSession.get().getTurn().getBoardIndexesToAdd().add(indexesHolder);
         }
-        else GameSession.get().getTurn().getTilesIndexesToRemove().remove(tileIndex);
+        else {
+            GameSession.get().getTurn().getTilesIndexesToRemove().remove(tileIndex);
+        }
+
+
 
 
         // Send a simple text response back

@@ -2,6 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="amk.scrabble.model.Tile" %>
 <%@ page import="amk.scrabble.model.GameSession" %>
+<%@ page import="amk.scrabble.model.BoardField" %>
+<%@ page import="amk.scrabble.model.GameBoard" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,12 +45,21 @@
 
 <!-- PLANSZA -->
 <div class="ScrabbleBoard">
+    <%
+        GameBoard gameBoard = (GameBoard) request.getAttribute("gameBoard");
+        BoardField[][] boardFields = gameBoard.getBoardFields();
+    %>
     <table>
         <% for (int i = 0; i < 15; i++) { %>
         <tr>
             <% for (int j = 0; j < 15; j++) { %>
             <td ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div id="cell_<%= i %>_<%= j %>" class="cell"></div>
+                <div id="cell_<%= i %>_<%= j %>" class="cell" style="background-image: url('<%= boardFields[i][j].getTileOnField() != null ? boardFields[i][j].getTileOnField().getBackgroundImagePath() : boardFields[i][j].getImage() %>')">
+                    <% if (boardFields[i][j].getTileOnField() != null) { %>
+                    <%= boardFields[i][j].getTileOnField().getCharacter() %>
+                    <span><%= boardFields[i][j].getTileOnField().getPoints() %></span>
+                    <% } %>
+                </div>
             </td>
             <% } %>
         </tr>
