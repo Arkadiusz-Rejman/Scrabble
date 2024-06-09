@@ -34,7 +34,7 @@ public class TurnManagerServlet extends HttpServlet {
             GameSession.get().getGameBoard().getBoardField(indexesHolder.getI1(), indexesHolder.getI2()).setTileOnField(tile);
         }
 
-        GameSession.get().getTurn().calculateScore();
+        GameSession.get().getTurn().calculateScore(); // To narazie zwraca tylko informacje dla mnie potrzebne
 
         //USUWANIE SKRABLI Z DOKU GRACZA
         for(int index : indexesToRemove) previousPlayer.getDock()[index] = null;
