@@ -94,7 +94,8 @@ window.onload = function() {
                 clearInterval(timer);
                 timeLeft = 15;
 
-                loadTurnManager()
+                loadTurnManager();
+
                 startTimer();
 
             } else {

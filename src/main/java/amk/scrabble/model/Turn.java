@@ -35,7 +35,7 @@ public class Turn {
 
     public void calculateScore(){
 
-        List<String> foundWords = new ArrayList<>();
+        List<StringBuilder> foundWords = new ArrayList<>();
 
 
         for (IndexesHolder indexesHolder : boardIndexesToAdd) {
@@ -69,14 +69,17 @@ public class Turn {
                         );
 
 
-                boolean wordDownward = leftClear && topClear && rightClear && !bottomClear;
-                boolean wordRightward = leftClear && topClear && !rightClear && bottomClear;
+                boolean wordDownward = topClear && !bottomClear;
+                boolean wordRightward = leftClear && !rightClear;
 
-                System.out.println("Word right " + wordRightward);
-                System.out.println("Word down " + wordDownward);
+                if(wordDownward || wordRightward){
+                    StringBuilder word = generateWord(wordRightward, indexesHolder, boardIndexesToAdd, playerTurn);
+                    System.out.println(word);
+                }
 
-                // Tu jest do dokończenia
-                // Jest to pojedynczy znak jeżeli word Right oraz down jest na false
+
+
+
 
             } else {
                 System.out.println("indexesHolder is null");
@@ -87,6 +90,36 @@ public class Turn {
 
 
 
+    }
+
+    private StringBuilder generateWord(boolean isRightward, IndexesHolder indexesHolder, List<IndexesHolder> boardIndexesToAdd, Player playerTurn) {
+        StringBuilder word = new StringBuilder();
+
+        word.append(playerTurn.getDock()[indexesHolder.getStoredIndex()]);
+
+        int startIdx = isRightward ? indexesHolder.getI2() + 1 : indexesHolder.getI1() + 1;
+        int endIdx = 15; // Dla wersji pionowej nie ma potrzeby zmiany endIdx
+
+        for (int idx = startIdx; idx < endIdx; idx++) {
+            boolean foundNextLetter = false;
+
+            for (IndexesHolder indexes : boardIndexesToAdd) {
+                int i1 = isRightward ? indexesHolder.getI1() : idx;
+                int i2 = isRightward ? idx : indexesHolder.getI2();
+
+                if (indexes.getI1() == i1 && indexes.getI2() == i2) {
+                    word.append(playerTurn.getDock()[indexes.getStoredIndex()]);
+                    foundNextLetter = true;
+                    break;
+                }
+            }
+
+            if (!foundNextLetter) {
+                break;
+            }
+        }
+
+        return word;
     }
 
 

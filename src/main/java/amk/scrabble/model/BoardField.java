@@ -2,14 +2,27 @@ package amk.scrabble.model;
 
 import amk.scrabble.enums.BonusType;
 
+import java.util.Objects;
+
 public class BoardField {
     private final BonusType bonusType;
     private Tile tileOnField;
+    private int i1;
+    private int i2;
 
-    public BoardField(BonusType bonusType){
+    public BoardField(int i1, int i2, BonusType bonusType){
         this.bonusType = bonusType;
+        this.i1 = i1;
+        this.i2 = i2;
     }
 
+    public int getI1() {
+        return i1;
+    }
+
+    public int getI2() {
+        return i2;
+    }
 
     public BonusType getBonusType(){
         return this.bonusType;
@@ -48,4 +61,5 @@ public class BoardField {
                 ", tileOnField=" + tileOnField +
                 '}';
     }
+
 }

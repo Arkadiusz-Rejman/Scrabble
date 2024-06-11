@@ -1,14 +1,16 @@
 package amk.scrabble.servlets;
 
-import amk.scrabble.model.GameSession;
-import amk.scrabble.model.Player;
-import amk.scrabble.model.Tile;
+
+
+import amk.scrabble.model.*;
 import amk.scrabble.utils.IndexesHolder;
+import amk.scrabble.utils.PolishDictionaryChecker;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import net.didion.jwnl.JWNL;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +36,20 @@ public class TurnManagerServlet extends HttpServlet {
             GameSession.get().getGameBoard().getBoardField(indexesHolder.getI1(), indexesHolder.getI2()).setTileOnField(tile);
         }
 
-        GameSession.get().getTurn().calculateScore(); // To narazie zwraca tylko informacje dla mnie potrzebne
+        //SZUKANIE NOWO POWSTALYCH SLOW I LICZENIE PKT
+        System.out.println("ZNALEZIONO " + GameSession.get().getGameBoard().getNewWords().size() + " NOWYCH!");
+        System.out.println(GameSession.get().getGameBoard().getNewWords());
+
+        //PolishDictionaryChecker polishDictionaryChecker = new PolishDictionaryChecker("/WEB-INF/slowa.txt");
+
+
+
+
+
+        GameSession.get().getGameBoard().saveWords();
+        //
+
+
 
         //USUWANIE SKRABLI Z DOKU GRACZA
         for(int index : indexesToRemove) previousPlayer.getDock()[index] = null;

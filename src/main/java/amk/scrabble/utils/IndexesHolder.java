@@ -9,6 +9,11 @@ public class IndexesHolder {
         this.storedIndex = storedIndex;
     }
 
+    public IndexesHolder(int i1, int i2) {
+        this.i1 = i1;
+        this.i2 = i2;
+    }
+
     public int getStoredIndex() {
         return storedIndex;
     }
