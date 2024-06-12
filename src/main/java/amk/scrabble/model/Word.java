@@ -28,6 +28,8 @@ public class Word {
         return wordDirection;
     }
 
+
+
     public boolean compare(Word word){
         boolean result = false;
         List<BoardField> targetFields = word.getBoardFields();

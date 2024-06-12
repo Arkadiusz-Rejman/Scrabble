@@ -21,6 +21,8 @@ import java.util.List;
 public class TurnManagerServlet extends HttpServlet {
 
     private PolishDictionaryChecker checker;
+    public List<Word> wordLetters;
+
 
     @Override
     public void init() throws ServletException {
@@ -49,10 +51,47 @@ public class TurnManagerServlet extends HttpServlet {
 
         //SZUKANIE NOWO POWSTALYCH SLOW I LICZENIE PKT
         System.out.println("ZNALEZIONO " + GameSession.get().getGameBoard().getNewWords().size() + " NOWYCH!");
-        System.out.println(GameSession.get().getGameBoard().getNewWords());
+
+        wordLetters = GameSession.get().getGameBoard().getNewWords();
 
 
+//        for (int i=0; i<  ;i++){
+//            System.out.println(wordLetters.get(i).getBoardFields().get(i).getTileOnField().getCharacter());
+//        }
 
+
+        for (Word word : wordLetters) {
+            List<BoardField> boardFields = word.getBoardFields();
+            List<Character> characterList = new ArrayList<>();
+
+            for (BoardField boardField : boardFields) {
+                Tile tile = boardField.getTileOnField();
+
+                if (tile != null) {
+                    char character = tile.getCharacter();
+                    //System.out.print(character); to pomaga przy bugach z odczytaniem słowa
+                    characterList.add(character);
+
+                }
+            }
+            System.out.println(" ");
+            //Budowanie String'a z kafelków na planszy
+            StringBuilder sb = new StringBuilder();
+            for (char ch : characterList) {
+                sb.append(ch);
+            }
+            String str = sb.toString().toLowerCase();
+            System.out.println("String: " + str);
+
+            //Sprawdzenie czy istnieje narazie bez funckjonalności
+            if(checker.isWordInDictionary(str)){
+                System.out.println("Słowo intnieje :)");
+            }
+            //Pomysł na sprawdzanie z brakującymi literami, pierwszy dodatkowy warunek to sprawdzenie na podstawie w jakim
+            //kierunku jest stawiane słowo czy nie brakuje pierwszej lub osattniej jeżeli dalej nie istenieje to 3ci warunek
+            //sprawdzenie od pierwszego do ostatniego indexy na planszy to będzie trudniejsze bo integracja z jsp :)
+
+        }
 
 
 
