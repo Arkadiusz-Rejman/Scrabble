@@ -11,36 +11,9 @@
     <title>Scrabble</title>
     <link rel="stylesheet" type="text/css" href="CSS/gameBoard.css">
     <script type="text/javascript" src="JS/gameBoard.js"></script>
-    <meta http-equiv="refresh" content="16">
-</head>
+   </head>
 <body>
-<h1>SKRABLE!</h1>
 
-<!-- TURY -->
-<div id="timer">30 seconds left</div>
-<div id="player">
-    Player <%= GameSession.get().getTurn().getPlayerTurn().getName() %> turn
-</div>
-
-<!-- SKRABLE -->
-<div class="TileSack">
-    <% Tile[] tiles = (Tile[]) request.getAttribute("tiles"); %>
-    <table>
-        <tr>
-            <% for (int j = 0; j < tiles.length; j++) { %>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div id="cell_<%= 20 %>_<%= j %>" class="cell">
-                    <div class="tile" id="tile_<%= j %>" style="background-image: url('<%= tiles[j].getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)" data-index="<%= j %>">
-                        <%= tiles[j].getCharacter() %>
-                        <span><%= tiles[j].getPoints() %></span>
-                    </div>
-                </div>
-            </td>
-            <% } %>
-        </tr>
-    </table>
-    <button onclick="refreshPage()">Submit Moves</button>
-</div>
 
 
 <!-- PLANSZA -->
@@ -65,7 +38,36 @@
         </tr>
         <% } %>
     </table>
-    <button onclick="refreshPage()">Submit Moves</button>
+</div>
+
+
+<div class="floater">
+    <!-- TURY -->
+    <div id="timer">secodnds left</div>
+    <div id="player">
+        Player <%= GameSession.get().getTurn().getPlayerTurn().getName() %> turn
+    </div>
+
+    <!-- SKRABLE -->
+    <div class="TileSack container">
+        <% Tile[] tiles = (Tile[]) request.getAttribute("tiles"); %>
+        <table>
+            <tr>
+                <% for (int j = 0; j < tiles.length; j++) { %>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div id="cell_<%= 20 %>_<%= j %>" class="cell">
+                        <div class="tile" id="tile_<%= j %>" style="background-image: url('<%= tiles[j].getBackgroundImagePath() %>');" onclick="highlightTile(this)" draggable="true" ondragstart="dragStart(event)" data-index="<%= j %>">
+                            <%= tiles[j].getCharacter() %>
+                            <span><%= tiles[j].getPoints() %></span>
+                        </div>
+                    </div>
+                </td>
+                <% } %>
+            </tr>
+        </table>
+        <button onclick="refreshPage()" class="button submit">Submit Moves</button>
+    </div>
+
 </div>
 </body>
 </html>

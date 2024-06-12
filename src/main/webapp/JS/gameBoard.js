@@ -84,15 +84,14 @@ function drop(event) {
 //Timer tury dla gracza
 
 window.onload = function() {
-    var timeLeft = 15;
+    var timeLeft = 180;
     var timerElement = document.getElementById("timer");
     var playerElement = document.getElementById("player");
-
     function startTimer() {
         var timer = setInterval(function() {
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                timeLeft = 15;
+                timeLeft = 180;
 
                 loadTurnManager();
 

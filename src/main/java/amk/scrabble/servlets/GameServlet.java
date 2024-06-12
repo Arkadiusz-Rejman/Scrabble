@@ -15,6 +15,7 @@ public class GameServlet extends HttpServlet {
         request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
         request.setAttribute("gameBoard", GameSession.get().getGameBoard());
         getServletContext().getRequestDispatcher("/JSP/gameBoard.jsp").forward(request,response);
+        response.setHeader("Cache-Control", "no-cache");
     }
 
     @Override
