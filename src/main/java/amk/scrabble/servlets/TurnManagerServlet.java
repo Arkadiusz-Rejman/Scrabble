@@ -20,6 +20,17 @@ import java.util.List;
 @WebServlet(name = "turnManagerServlet", urlPatterns = "/turnManagerServlet")
 public class TurnManagerServlet extends HttpServlet {
 
+    private PolishDictionaryChecker checker;
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            checker = new PolishDictionaryChecker(getServletContext(), "/WEB-INF/slowa.txt");
+        } catch (IOException e) {
+            throw new ServletException("Nie udało się załadować pliku słownika", e);
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,14 +51,14 @@ public class TurnManagerServlet extends HttpServlet {
         System.out.println("ZNALEZIONO " + GameSession.get().getGameBoard().getNewWords().size() + " NOWYCH!");
         System.out.println(GameSession.get().getGameBoard().getNewWords());
 
-        //PolishDictionaryChecker polishDictionaryChecker = new PolishDictionaryChecker("/WEB-INF/slowa.txt");
+
 
 
 
 
 
         GameSession.get().getGameBoard().saveWords();
-        //
+
 
 
 
