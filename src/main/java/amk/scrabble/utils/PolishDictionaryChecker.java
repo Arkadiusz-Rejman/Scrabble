@@ -15,7 +15,6 @@ public class PolishDictionaryChecker {
 
     public PolishDictionaryChecker(ServletContext context, String filePath) throws IOException {
 
-        System.out.println("ODPALAM");
 
         InputStream inputStream = context.getResourceAsStream(filePath);
         if (inputStream == null) {

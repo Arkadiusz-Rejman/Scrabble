@@ -231,11 +231,11 @@ public class GameBoard {
         boardFields[13][2] = new BoardField(13, 2, BonusType.NONE);
         boardFields[13][3] = new BoardField(13, 3, BonusType.NONE);
         boardFields[13][4] = new BoardField(13, 4, BonusType.NONE);
-        boardFields[13][5] = new BoardField(13, 5, BonusType.NONE);
+        boardFields[13][5] = new BoardField(13, 5, BonusType.TRIPLE_LETTER_SCORE);
         boardFields[13][6] = new BoardField(13, 6, BonusType.NONE);
         boardFields[13][7] = new BoardField(13, 7, BonusType.NONE);
         boardFields[13][8] = new BoardField(13, 8, BonusType.NONE);
-        boardFields[13][9] = new BoardField(13, 9, BonusType.NONE);
+        boardFields[13][9] = new BoardField(13, 9, BonusType.TRIPLE_LETTER_SCORE);
         boardFields[13][10] = new BoardField(13, 10, BonusType.NONE);
         boardFields[13][11] = new BoardField(13, 11, BonusType.NONE);
         boardFields[13][12] = new BoardField(13, 12, BonusType.NONE);

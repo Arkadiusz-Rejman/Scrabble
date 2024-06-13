@@ -9,6 +9,7 @@ public class Player {
     private String name;
     private Tile[] dock = new Tile[8];
     private Tile selectedTile; //Tego nie uzywam?
+    private int score = 0;
 
 
     public Player(String name) {
@@ -21,6 +22,10 @@ public class Player {
 
     public Tile getSelectedTile() {
         return selectedTile;
+    }
+
+    public int getScore(){
+        return score;
     }
 
     public void setDock(Tile[] tiles) { this.dock = tiles; }
@@ -47,6 +52,10 @@ public class Player {
             }
         }
 
+    }
+
+    public void addPoints(int points) {
+        score += points;
     }
 
     public void setName(String name) {

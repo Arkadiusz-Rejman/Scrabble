@@ -84,17 +84,18 @@ function drop(event) {
 //Timer tury dla gracza
 
 window.onload = function() {
+
     var timeLeft = 180;
     var timerElement = document.getElementById("timer");
     var playerElement = document.getElementById("player");
+
     function startTimer() {
         var timer = setInterval(function() {
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 timeLeft = 180;
 
-                loadTurnManager();
-
+                refreshPage();
                 startTimer();
 
             } else {
@@ -107,31 +108,16 @@ window.onload = function() {
     startTimer();
 }
 
-function loadTurnManager(){
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                playerElement.innerHTML = xhr.responseText;
-            } else {
-                console.error('Nie udało się pobrać wartości gracza');
-            }
-        }
-    };
-
-    xhr.open("GET", "turnManagerServlet", true);
-    xhr.send();
-}
-
-function refreshPage(){
+async function refreshPage() {
 
     var xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
+            location.reload();
             if (xhr.status === 200) {
                 playerElement.innerHTML = xhr.responseText;
+
             } else {
                 console.error('Nie udało się pobrać wartości gracza');
             }
@@ -141,7 +127,7 @@ function refreshPage(){
     xhr.open("GET", "turnManagerServlet", true);
     xhr.send();
 
-    location.reload();
+
 }
 
 

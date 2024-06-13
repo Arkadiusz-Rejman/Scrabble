@@ -30,6 +30,8 @@ public class Word {
 
 
 
+
+
     public boolean compare(Word word){
         boolean result = false;
         List<BoardField> targetFields = word.getBoardFields();
@@ -52,9 +54,12 @@ public class Word {
 
     @Override
     public String toString() {
-        return "Word{" +
-                "tiles=" + boardFields +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        for(BoardField boardField : boardFields){
+            sb.append(boardField.getTileOnField().getCharacter());
+        }
+
+        return sb.toString();
     }
 
 

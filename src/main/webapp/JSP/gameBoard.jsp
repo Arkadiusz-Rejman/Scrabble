@@ -48,6 +48,8 @@
         Player <%= GameSession.get().getTurn().getPlayerTurn().getName() %> turn
     </div>
 
+    <div id="score">Score: <%= GameSession.get().getTurn().getPlayerTurn().getScore() %> </div>  <!-- Jeszcze nie zrobione w CSS -->
+
     <!-- SKRABLE -->
     <div class="TileSack container">
         <% Tile[] tiles = (Tile[]) request.getAttribute("tiles"); %>

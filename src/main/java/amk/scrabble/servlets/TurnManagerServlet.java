@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @WebServlet(name = "turnManagerServlet", urlPatterns = "/turnManagerServlet")
 public class TurnManagerServlet extends HttpServlet {
@@ -55,50 +55,61 @@ public class TurnManagerServlet extends HttpServlet {
         wordLetters = GameSession.get().getGameBoard().getNewWords();
 
 
-//        for (int i=0; i<  ;i++){
-//            System.out.println(wordLetters.get(i).getBoardFields().get(i).getTileOnField().getCharacter());
-//        }
-
 
         for (Word word : wordLetters) {
-            List<BoardField> boardFields = word.getBoardFields();
-            List<Character> characterList = new ArrayList<>();
-
-            for (BoardField boardField : boardFields) {
-                Tile tile = boardField.getTileOnField();
-
-                if (tile != null) {
-                    char character = tile.getCharacter();
-                    //System.out.print(character); to pomaga przy bugach z odczytaniem słowa
-                    characterList.add(character);
-
-                }
-            }
-            System.out.println(" ");
-            //Budowanie String'a z kafelków na planszy
-            StringBuilder sb = new StringBuilder();
-            for (char ch : characterList) {
-                sb.append(ch);
-            }
-            String str = sb.toString().toLowerCase();
-            System.out.println("String: " + str);
-
-            //Sprawdzenie czy istnieje narazie bez funckjonalności
-            if(checker.isWordInDictionary(str)){
+            System.out.println("Przetwarzane słowo: " + word);
+            if(checker.isWordInDictionary(word.toString().toLowerCase())){
                 System.out.println("Słowo intnieje :)");
-            }
-            //Pomysł na sprawdzanie z brakującymi literami, pierwszy dodatkowy warunek to sprawdzenie na podstawie w jakim
-            //kierunku jest stawiane słowo czy nie brakuje pierwszej lub osattniej jeżeli dalej nie istenieje to 3ci warunek
-            //sprawdzenie od pierwszego do ostatniego indexy na planszy to będzie trudniejsze bo integracja z jsp :)
 
+                int totalPoints = 0;
+                int wordMultiplier = 1;
+
+                for (BoardField boardField : word.getBoardFields()) {
+                    int tilePoints = boardField.getTileOnField().getPoints();
+
+                    boolean hasBonus = boardIndexesToAdd.stream()
+                            .anyMatch(indexesHolder -> boardField.getI1() == indexesHolder.getI1() && boardField.getI2() == indexesHolder.getI2());
+
+                    if (hasBonus) {
+                        switch (boardField.getBonusType()) {
+                            case DOUBLE_LETTER_SCORE:
+                                tilePoints *= 2;
+                                break;
+                            case DOUBLE_WORD_SCORE:
+                                wordMultiplier *= 2;
+                                break;
+                            case TRIPLE_LETTER_SCORE:
+                                tilePoints *= 3;
+                                break;
+                            case TRIPLE_WORD_SCORE:
+                                wordMultiplier *= 3;
+                                break;
+                            case NONE:
+                            case START:
+                                break;
+                        }
+                    }
+
+                    totalPoints += tilePoints;
+                }
+
+                System.out.println("Mnoze " + totalPoints + " razy " + wordMultiplier);
+
+                totalPoints *= wordMultiplier;
+
+                System.out.println("Gracz uzyskał w tej rundzie " + totalPoints + " punktow");
+                previousPlayer.addPoints(totalPoints);
+                System.out.println("Gracz ma teraz " + previousPlayer.getScore() + " punktow");
+
+
+
+            }else System.out.println("Słowo nie istnieje :(");
         }
-
-
 
 
         GameSession.get().getGameBoard().saveWords();
 
-
+        //
 
 
         //USUWANIE SKRABLI Z DOKU GRACZA
