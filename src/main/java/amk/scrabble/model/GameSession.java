@@ -1,5 +1,6 @@
 package amk.scrabble.model;
 
+import javax.swing.text.MaskFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,9 @@ public class GameSession {
     private GameBoard gameBoard;
     private Turn turn;
     private TileSack tileSack;
+    private MessagesManager messagesManager;
     private static GameSession gameSession;
+
 
     private GameSession(){}
 
@@ -27,6 +30,9 @@ public class GameSession {
     public void setPlayers(List<Player> players) {
         gameSession.players = players;
     }
+
+    public MessagesManager getMessagesManager() { return messagesManager; }
+    public void setMessagesManager(MessagesManager messagesManager) { gameSession.messagesManager = messagesManager; }
 
     public GameBoard getGameBoard(){ return gameSession.gameBoard; }
     public void setGameBoard(GameBoard gameBoard) { gameSession.gameBoard = gameBoard; }

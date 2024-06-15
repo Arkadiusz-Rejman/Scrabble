@@ -27,11 +27,15 @@ public class PlayerSelectionServlet extends HttpServlet {
 
 
 
+
         GameSession.get().setGameBoard(new GameBoard());
         GameSession.get().setTurn(new Turn(playerList.get(0)));
         GameSession.get().setTileSack(new TileSack());
         playerList.forEach(player -> player.setDock(GameSession.get().getTileSack().drawTiles(8)));
         GameSession.get().setPlayers(playerList);
+        GameSession.get().setMessagesManager(new MessagesManager());
+        GameSession.get().getMessagesManager().addMessage("----------------------------------------------------------");
+        GameSession.get().getMessagesManager().addMessage("TURA GRACZA " + playerList.get(0).getName());
 
 
         response.sendRedirect("game");

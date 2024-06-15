@@ -56,12 +56,14 @@ public class TurnManagerServlet extends HttpServlet {
 
 
 
+        int totalPoints = 0;
+
         for (Word word : wordLetters) {
             System.out.println("Przetwarzane słowo: " + word);
             if(checker.isWordInDictionary(word.toString().toLowerCase())){
-                System.out.println("Słowo intnieje :)");
+                GameSession.get().getMessagesManager().addMessage("Uznano słowo: " + word.toString());
 
-                int totalPoints = 0;
+                int wordPoints = 0;
                 int wordMultiplier = 1;
 
                 for (BoardField boardField : word.getBoardFields()) {
@@ -90,21 +92,24 @@ public class TurnManagerServlet extends HttpServlet {
                         }
                     }
 
-                    totalPoints += tilePoints;
+                    wordPoints += tilePoints;
                 }
 
-                System.out.println("Mnoze " + totalPoints + " razy " + wordMultiplier);
+                //System.out.println("Mnoze " + totalPoints + " razy " + wordMultiplier);
 
-                totalPoints *= wordMultiplier;
-
-                System.out.println("Gracz uzyskał w tej rundzie " + totalPoints + " punktow");
-                previousPlayer.addPoints(totalPoints);
-                System.out.println("Gracz ma teraz " + previousPlayer.getScore() + " punktow");
+                wordPoints *= wordMultiplier;
+                totalPoints += wordPoints;
 
 
+                //System.out.println("Gracz ma teraz " + previousPlayer.getScore() + " punktow");
 
-            }else System.out.println("Słowo nie istnieje :(");
+
+
+            }else GameSession.get().getMessagesManager().addMessage("Nie uznano słowa: " + word.toString());
         }
+
+        previousPlayer.addPoints(totalPoints);
+        GameSession.get().getMessagesManager().addMessage("W tej rundzie uzyskano " + totalPoints + " punktow");
 
 
         GameSession.get().getGameBoard().saveWords();
@@ -124,6 +129,8 @@ public class TurnManagerServlet extends HttpServlet {
 
         //ZMIANA TURY (NA KONCU)
         GameSession.get().changeTurn();
+        GameSession.get().getMessagesManager().addMessage("----------------------------------------------------------");
+        GameSession.get().getMessagesManager().addMessage("TURA GRACZA " + GameSession.get().getTurn().getPlayerTurn().getName());
 
 
 

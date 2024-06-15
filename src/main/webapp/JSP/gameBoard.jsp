@@ -71,6 +71,17 @@
     </div>
 
 </div>
+
+<div class="MessagesContainer">
+    <% List<String> messages = GameSession.get().getMessagesManager().getMessages(); %>
+    <div class="messages-list">
+        <% for (int i = 0; i < messages.size(); i++) { %>
+        <div id="message_<%= i %>" class="message-item"><%= messages.get(i) %></div>
+        <% } %>
+    </div>
+</div>
+
+
 </body>
 </html>
 

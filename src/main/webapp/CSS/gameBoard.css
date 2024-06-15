@@ -108,3 +108,30 @@ body {
     margin-left: 25px;
     float: left;
 }
+
+
+
+
+
+.MessagesContainer {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+}
+
+.messages-list {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.message-item {
+    margin-bottom: 5px;
+    padding: 2px;
+    font-size: 14px;
+    font-weight: bold;
+}
