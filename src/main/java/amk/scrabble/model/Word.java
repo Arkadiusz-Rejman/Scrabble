@@ -1,11 +1,13 @@
 package amk.scrabble.model;
 
+import amk.scrabble.enums.BonusType;
 import amk.scrabble.enums.WordDirection;
 import amk.scrabble.utils.IndexesHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Word {
     List<BoardField> boardFields = new ArrayList<>();
@@ -26,6 +28,20 @@ public class Word {
 
     public WordDirection getWordDirection() {
         return wordDirection;
+    }
+
+
+    public List<BoardField> getCommonFields(Word word) {
+        return boardFields.stream()
+                .filter(boardField -> word.getBoardFields().stream()
+                        .anyMatch(otherBoardField ->
+                                boardField.getI1() == otherBoardField.getI1() &&
+                                        boardField.getI2() == otherBoardField.getI2()))
+                .collect(Collectors.toList());
+    }
+
+    public boolean isStartWord(){
+        return boardFields.stream().anyMatch(bf -> bf.getBonusType() == BonusType.START);
     }
 
 

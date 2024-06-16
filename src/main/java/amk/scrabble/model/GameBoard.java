@@ -269,6 +269,22 @@ public class GameBoard {
         return this.boardFields[x][y];
     }
 
+    public boolean isBoardFieldAlone(BoardField boardField) {
+        boolean topClear = boardField.getI1() == 0 ||
+                boardFields[boardField.getI1() - 1][boardField.getI2()].getTileOnField() == null;
+
+        boolean bottomClear = boardField.getI1() == 14 ||
+                boardFields[boardField.getI1() + 1][boardField.getI2()].getTileOnField() == null;
+
+        boolean leftClear = boardField.getI2() == 0 ||
+                boardFields[boardField.getI1()][boardField.getI2() - 1].getTileOnField() == null;
+
+        boolean rightClear = boardField.getI2() == 14 ||
+                boardFields[boardField.getI1()][boardField.getI2() + 1].getTileOnField() == null;
+
+        return topClear && bottomClear && leftClear && rightClear;
+    }
+
     public List<Word> getWordsOnBoard(){
         List<Word> words = new ArrayList<>();
 
@@ -315,6 +331,10 @@ public class GameBoard {
         return newWords;
     }
 
+    public boolean isStartOccupied(){
+        return boardFields[7][7].isOccupied();
+    }
+
 
 
     private Word findWord(BoardField boardField, boolean isDownWard){
@@ -344,9 +364,7 @@ public class GameBoard {
                     if(BF.getTileOnField() != null) word.append(BF);
                     else break;
                 }
-
                 break;
-
         }
 
         return word;

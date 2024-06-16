@@ -40,6 +40,10 @@ public class BoardField {
         this.tileOnField = tileOnField;
     }
 
+    public void removeTileOnField(){
+        this.tileOnField = null;
+    }
+
     public String getImage(){
         String imageURL = "";
         switch (this.bonusType){

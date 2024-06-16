@@ -23,6 +23,7 @@ public class GameSession {
     public static void shutdown() { gameSession = null; }
 
 
+
     //OBJ
     public List<Player> getPlayers() {
         return gameSession.players;
@@ -30,6 +31,8 @@ public class GameSession {
     public void setPlayers(List<Player> players) {
         gameSession.players = players;
     }
+
+
 
     public MessagesManager getMessagesManager() { return messagesManager; }
     public void setMessagesManager(MessagesManager messagesManager) { gameSession.messagesManager = messagesManager; }
