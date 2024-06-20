@@ -14,7 +14,8 @@ public class GameSession {
     private static GameSession gameSession;
 
 
-    private GameSession(){}
+    private GameSession(){
+    }
 
 
     //STATIC

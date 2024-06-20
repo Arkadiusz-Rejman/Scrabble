@@ -145,7 +145,7 @@ public class TurnManagerServlet extends HttpServlet {
         GameSession.get().getMessagesManager().addMessage("----------------------------------------------------------");
         GameSession.get().getMessagesManager().addMessage("TURA GRACZA " + GameSession.get().getTurn().getPlayerTurn().getName());
 
-        //PRZESYLANIE DANYCH DO JSP
+        //PRZESYLANIE DANYCH DO JSP);
         request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
         request.setAttribute("gameBoard", GameSession.get().getGameBoard());
         request.getRequestDispatcher("/JSP/gameBoard.jsp").forward(request, response);

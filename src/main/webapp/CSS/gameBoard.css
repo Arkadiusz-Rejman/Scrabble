@@ -5,21 +5,35 @@ body {
     margin: 0;
 }
 
-.container {
+.TileSack {
     text-align: center;
-    background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Dodatkowy margines na górze */
     max-width: 400px; /* Maksymalna szerokość kontenera */
-    margin-right: 50px;
+    margin-bottom: 10px;
+}
+
+.container_0 {
+    background-color: #add8e6;
+}
+
+.container_1 {
+    background-color: #90ee90;
+}
+
+.container_2 {
+    background-color: #ffb6c1;
+}
+
+.container_3 {
+    background-color: #ffff99;
 }
 
 .button {
-    display: block;
+    margin-top: 20px ;
+    margin-left: 20px;
     width: 200px;
-    margin: 10px auto;
     padding: 10px 0;
     color: white;
     border: none;
@@ -45,6 +59,7 @@ body {
 .TileSack table {
     border-collapse: collapse;
     margin: 20px auto;
+    align-items: center;
 }
 
 .tile {
@@ -89,29 +104,32 @@ body {
 #timer {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    margin-top: 35px;
+    margin-left: 15px;
+    margin-top: 15px;
     text-align: center;
 }
 #player{
-    margin-right: 20px;
-    margin-top: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
     text-align: center;
 }
 .floater{
-    float: right;
+    float: left;
+    align-items: center;
     margin-right: 100px;
+    margin-left: 50px;
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 .ScrabbleBoard{
     margin-top: 25px;
     margin-left: 25px;
     float: left;
 }
-
-
-
-
 
 .MessagesContainer {
     width: 300px;
@@ -122,6 +140,8 @@ body {
     position: relative;
     background-color: #e0e0e0;
     border-radius: 3px;
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
 .messages-list {
@@ -134,4 +154,32 @@ body {
     padding: 2px;
     font-size: 14px;
     font-weight: bold;
+}
+
+.player_name{
+    float: left;
+    margin-left: 30px;
+}
+.player_score{
+    float: right;
+    margin-right: 30px;
+}
+.p.bold{
+    font-weight: bold;
+}
+.floater2{
+    align-items: center;
+    margin-right: 100px;
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Maksymalna szerokość kontenera */
+    max-height: 600px;
+    float: left;
+}
+.gra{
+    margin-top: 50px;
+    margin-left: 50px;
 }

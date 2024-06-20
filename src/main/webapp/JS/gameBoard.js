@@ -89,6 +89,28 @@ window.onload = function() {
     var timerElement = document.getElementById("timer");
     var playerElement = document.getElementById("player");
 
+    async function rednerDocks() {
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                location.reload();
+                if (xhr.status === 200) {
+                    playerElement.innerHTML = xhr.responseText;
+
+                } else {
+                    console.error('Nie udało się pobrać wartości docków');
+                }
+            }
+        };
+
+        xhr.open("GET", "dockRednerServlet", true);
+        xhr.send();
+    }
+
+
+
     function startTimer() {
         var timer = setInterval(function() {
             if (timeLeft <= 0) {
@@ -126,8 +148,6 @@ async function refreshPage() {
 
     xhr.open("GET", "turnManagerServlet", true);
     xhr.send();
-
-
 }
 
 
