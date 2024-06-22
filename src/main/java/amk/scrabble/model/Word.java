@@ -40,6 +40,10 @@ public class Word {
                 .collect(Collectors.toList());
     }
 
+    public boolean hasCommonFields(Word word) {
+        return !getCommonFields(word).isEmpty();
+    }
+
     public boolean isStartWord(){
         return boardFields.stream().anyMatch(bf -> bf.getBonusType() == BonusType.START);
     }

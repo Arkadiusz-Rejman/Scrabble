@@ -1,3 +1,20 @@
+
+function highlightTile(tile) {
+    var parentID = tile.parentNode.id;
+
+    var parts = parentID.split("_");
+    var firstPart = parseInt(parts[1], 10);
+
+    if(firstPart >= 20){
+        tile.classList.toggle('highlighted');
+        var isDraggable = tile.getAttribute('draggable') === 'true';
+        tile.setAttribute('draggable', isDraggable ? 'false' : 'true');
+    }
+
+
+
+}
+
 function dragStart(event) {
     console.log("dragStart: ", event.target.id);
     event.dataTransfer.setData("application/tile-id", event.target.id);
@@ -25,9 +42,6 @@ function drop(event) {
     var targetId = target.id;
 
 
-
-
-
     console.log("drop: initial target = ", target);
 
     while (target && !target.classList.contains('cell') && target.id !== 'tile-container') {
@@ -42,13 +56,13 @@ function drop(event) {
         return;
     }
 
-    if(target.children.length > 0){
+    if (target.children.length > 0) {
         alert("already occupied")
         return;
     }
 
     let startCell = document.getElementById("cell_7_7");
-    if(startCell && startCell.children.length === 0 && targetId !== "cell_7_7"){
+    if (startCell && startCell.children.length === 0 && targetId !== "cell_7_7") {
         alert("First move - you have to start at the middle");
         return;
     }
@@ -62,7 +76,7 @@ function drop(event) {
 
 
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 console.log('Success:', xhr.responseText);
@@ -77,13 +91,11 @@ function drop(event) {
     xhr.send("tileIndex=" + encodeURIComponent(tileIndex) + "&targetID=" + encodeURIComponent(targetId));
 
 
-
-
 }
 
 //Timer tury dla gracza
 
-window.onload = function() {
+window.onload = function () {
 
     var timeLeft = 180;
     var timerElement = document.getElementById("timer");
@@ -110,9 +122,8 @@ window.onload = function() {
     }
 
 
-
     function startTimer() {
-        var timer = setInterval(function() {
+        var timer = setInterval(function () {
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 timeLeft = 180;

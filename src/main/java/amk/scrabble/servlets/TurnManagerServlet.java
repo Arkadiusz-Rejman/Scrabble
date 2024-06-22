@@ -69,7 +69,9 @@ public class TurnManagerServlet extends HttpServlet {
         }
 
         // OBSŁUGA POPRAWNOSCI STAWIANIA SŁÓW
-        boolean wordsPlacedCorrectly = true;
+        // SPRAWDZENIE CZY STAWIANE SLOWO JEST CZESCIA SLOWA Z POPRZEDNIEJ TURY
+        List<Word> wordsPlacedCorrectly = new ArrayList<>();
+        List<Word> wordsPlacedIncorrectly = new ArrayList<>();
 
             for (Word word : newWords) {
 
@@ -89,14 +91,16 @@ public class TurnManagerServlet extends HttpServlet {
                     }
                 }
 
-                if(!wordPlacedCorrectly) {
-                    wordsPlacedCorrectly = false;
-                    break;
-                }
-
+                if(wordPlacedCorrectly) wordsPlacedCorrectly.add(word);
+                else wordsPlacedIncorrectly.add(word);
             }
 
-
+       //USUWANIE NIEPOPRAWNIE POSTAWIONYCH SLOW JEZELI SA ONE CZESCIA DOBRZE POSTAWIONYCH SLOW W TEJ TURZE
+        wordsPlacedIncorrectly.removeIf(incorrectWord ->
+                wordsPlacedCorrectly.stream().anyMatch(correctWord ->
+                        correctWord.hasCommonFields(incorrectWord)
+                )
+        );
 
         //USUWANIE POJEDYNCZYCH Z BOARD INDEXES
         List<IndexesHolder> soloIndexes = new ArrayList<>();
@@ -108,13 +112,11 @@ public class TurnManagerServlet extends HttpServlet {
         boolean soloWordsFound = !soloIndexes.isEmpty();
 
 
-        //ZLE UMIEJSCOWIONE LITERY JAK WPISUJE DWA NA RAZ DO JEDNEGO...
-
-        // OBSŁUGA POPRAWNOŚCI WPISANYCH/STAWIANYCH SŁÓW
-        if (!incorrectWords.isEmpty() || soloWordsFound || !wordsPlacedCorrectly) {
+        // FINALNA OBSŁUGA POPRAWNOŚCI WPISANYCH/STAWIANYCH SŁÓW
+        if (!incorrectWords.isEmpty() || soloWordsFound || !wordsPlacedIncorrectly.isEmpty()) {
             if(!incorrectWords.isEmpty()) GameSession.get().getMessagesManager().addMessage("Nie uznano słów: " + rejectedWordsString);
             if(soloWordsFound) GameSession.get().getMessagesManager().addMessage("Znaleziono pojedyncze litery");
-            if(!wordsPlacedCorrectly) GameSession.get().getMessagesManager().addMessage("Żle umiejscowiono litery");
+            if(!wordsPlacedIncorrectly.isEmpty()) GameSession.get().getMessagesManager().addMessage("Żle umiejscowiono litery");
 
             GameSession.get().getMessagesManager().addMessage("TURA ZOSTAJE ANULOWANA!");
 
