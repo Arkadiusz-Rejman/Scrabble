@@ -48,17 +48,22 @@ function highlightTile(tile) {
         }
     }
 
-    // Wysłanie danych do servleta
-    var highlightedTileIds = [];
-    for (let i = 0; i <= 7; i++) {
-        let tileId = `tile_${i + offset}`;
-        let tileElem = document.getElementById(tileId);
 
-        if (tileElem && tileElem.classList.contains('highlighted')){
-            let adjustedTileId = `tile_${i}`;
-            highlightedTileIds.push(adjustedTileId);
-        }
+    // Wysłanie danych do servleta
+    var highlightedTileIds = findHighlightedTiles(offset);
+
+    let sackDiv = document.getElementById('sackRepresentation');
+    let h1Value = parseInt(sackDiv.querySelector('h1').textContent, 10);
+
+    // Zabezpieczenie przeciw zaznaczaniem gdy nie ma tylu w worku
+    if(highlightedTileIds.length > h1Value) {
+
+        tile.classList.remove('highlighted');
+        highlightedTileIds = findHighlightedTiles(offset);
+
     }
+
+
 
     if(highlightedTileIds.length > 0){
 
@@ -83,6 +88,21 @@ function highlightTile(tile) {
 
 }
 
+function findHighlightedTiles(offset) {
+    let highlightedTileIds = [];
+
+    for (let i = 0; i <= 7; i++) {
+        let tileId = `tile_${i + offset}`;
+        let tileElem = document.getElementById(tileId);
+
+        if (tileElem && tileElem.classList.contains('highlighted')){
+            let adjustedTileId = `tile_${i}`;
+            highlightedTileIds.push(adjustedTileId);
+        }
+    }
+
+    return highlightedTileIds;
+}
 
 function dragStart(event) {
     console.log("dragStart: ", event.target.id);
