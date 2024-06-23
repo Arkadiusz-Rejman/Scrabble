@@ -82,6 +82,14 @@
             <% } %>
         </div>
     </div>
+
+    <div id="sackRepresentation">
+        <img src="images/sack.png" alt="Sack Representation">
+        <h1><%=GameSession.get().getTileSack().getActualSackSize()%></h1>
+
+    </div>
+
+
 </div>
 </div>
 </body>

@@ -48,6 +48,11 @@ public class TurnManagerServlet extends HttpServlet {
             previousPlayer.getDock()[indexesHolder.getStoredIndex()] = null;
         }
 
+        //USUWANIE PŁYTEK Z DOKU GRACZA NA PODSTAWIE LOSOWANIA NOWYCH
+        List<Integer> toChange = previousPlayer.getTilesIndexesToChange();
+        toChange.forEach(i -> previousPlayer.getDock()[i] = null);
+
+
         // SZUKANIE NOWO POWSTAŁYCH SŁÓW
         List<Word> newWords = GameSession.get().getGameBoard().getNewWords();
 
@@ -126,7 +131,7 @@ public class TurnManagerServlet extends HttpServlet {
                 previousPlayer.getDock()[indexesHolder.getStoredIndex()] = tile;
             }
         } else {
-            GameSession.get().getMessagesManager().addMessage("Uznano słowa: " + acceptedWordsString);
+            if(!correctWords.isEmpty()) GameSession.get().getMessagesManager().addMessage("Uznano słowa: " + acceptedWordsString);
             for (Word correctWord : correctWords) totalPoints += calculateWordScore(correctWord, boardIndexesToAdd);
 
             previousPlayer.addPoints(totalPoints);
@@ -136,11 +141,15 @@ public class TurnManagerServlet extends HttpServlet {
         //ZAPISANIE ZMIAN W GAME BOARD
         GameSession.get().getGameBoard().saveWords();
 
-
         //LOSOWANIE NOWYCH TILES
         int missingTiles = previousPlayer.getMissingTiles();
         Tile[] newTiles = GameSession.get().getTileSack().drawTiles(missingTiles);
         previousPlayer.fillDock(newTiles);
+
+        //WRZUCANIE DO WORECZKA ZAMIENIONYCH TILES
+        List<Tile> returningTiles = previousPlayer.getTilesToChange();
+        GameSession.get().getTileSack().addTiles(returningTiles);
+        previousPlayer.clearTilesIndexesToChange();
 
         //ZMIANA TURY (NA KONCU)
         GameSession.get().changeTurn();

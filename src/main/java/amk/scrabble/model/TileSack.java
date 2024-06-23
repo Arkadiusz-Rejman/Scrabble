@@ -56,4 +56,12 @@ public class TileSack {
 
         return drawnTiles;
     }
+
+    public int getActualSackSize(){
+        return tiles.size();
+    }
+
+    public void addTiles(List<Tile> tiles){
+        this.tiles.addAll(tiles);
+    }
 }

@@ -1,19 +1,88 @@
 
 function highlightTile(tile) {
-    var parentID = tile.parentNode.id;
+    // Pobieranie danych o tile
+    var tileParts = tile.id.split("_");
+    var firstTilePart = parseInt(tileParts[1], 10);
+    var offset = Math.floor(firstTilePart / 10) * 10;
 
-    var parts = parentID.split("_");
-    var firstPart = parseInt(parts[1], 10);
+    // Sprawdzenie czy wszystkie kafelki znajduja sie w doku
+    let allInDock = true;
+    for (let i = 0; i <= 7; i++) {
+        let tileId = `tile_${i + offset}`;
+        let tileElem = document.getElementById(tileId);
 
-    if(firstPart >= 20){
+        if (tileElem) {
+            let parentIdParts = tileElem.parentNode.id.split("_");
+            let parentFirstPart = parseInt(parentIdParts[1], 10);
+            if (parentFirstPart < 20) {
+                allInDock = false;
+                break;
+            }
+        }
+    }
+
+    if (allInDock) {
+        // jezeli wszystie są w doku to przelacz jego wyroznienie
         tile.classList.toggle('highlighted');
-        var isDraggable = tile.getAttribute('draggable') === 'true';
-        tile.setAttribute('draggable', isDraggable ? 'false' : 'true');
+
+        // sprawdzenie czy którykolwiek jest wyrozniony
+        var anyHighlighted = false;
+        for (let i = 0; i <= 7; i++) {
+            let tileId = `tile_${i + offset}`;
+            let tileElem = document.getElementById(tileId);
+
+            if (tileElem && tileElem.classList.contains('highlighted')) {
+                anyHighlighted = true;
+                break;
+            }
+        }
+
+        // Ustaw atrybut draggable na true/false w zależności od tego, czy którykolwiek kafelek jest wyróżniony
+        for (let i = 0; i <= 7; i++) {
+            let tileId = `tile_${i + offset}`;
+            let tileElem = document.getElementById(tileId);
+
+            if (tileElem) {
+                tileElem.setAttribute('draggable', anyHighlighted ? 'false' : 'true');
+            }
+        }
+    }
+
+    // Wysłanie danych do servleta
+    var highlightedTileIds = [];
+    for (let i = 0; i <= 7; i++) {
+        let tileId = `tile_${i + offset}`;
+        let tileElem = document.getElementById(tileId);
+
+        if (tileElem && tileElem.classList.contains('highlighted')){
+            let adjustedTileId = `tile_${i}`;
+            highlightedTileIds.push(adjustedTileId);
+        }
+    }
+
+    if(highlightedTileIds.length > 0){
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Success:', xhr.responseText);
+                } else {
+                    console.error('Failed to send highlightedItems');
+                }
+            }
+        };
+
+        xhr.open("POST", "changeTilesServlet", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("tileIndex=" + encodeURIComponent(highlightedTileIds));
+
     }
 
 
 
 }
+
 
 function dragStart(event) {
     console.log("dragStart: ", event.target.id);
@@ -69,6 +138,7 @@ function drop(event) {
 
     if (tile.parentNode) {
         tile.parentNode.removeChild(tile);
+
     }
 
 
@@ -99,27 +169,30 @@ window.onload = function () {
 
     var timeLeft = 180;
     var timerElement = document.getElementById("timer");
-    var playerElement = document.getElementById("player");
 
-    async function rednerDocks() {
 
-        var xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                location.reload();
-                if (xhr.status === 200) {
-                    playerElement.innerHTML = xhr.responseText;
-
-                } else {
-                    console.error('Nie udało się pobrać wartości docków');
-                }
-            }
-        };
-
-        xhr.open("GET", "dockRednerServlet", true);
-        xhr.send();
-    }
+    //Średnio wiem jaki to miało cel, dlatego zakomentowałem
+    // var playerElement = document.getElementById("player");
+    //
+    // async function rednerDocks() {
+    //
+    //     var xhr = new XMLHttpRequest();
+    //
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState === XMLHttpRequest.DONE) {
+    //             location.reload();
+    //             if (xhr.status === 200) {
+    //                 playerElement.innerHTML = xhr.responseText;
+    //
+    //             } else {
+    //                 console.error('Nie udało się pobrać wartości docków');
+    //             }
+    //         }
+    //     };
+    //
+    //     xhr.open("GET", "dockRednerServlet", true);
+    //     xhr.send();
+    // }
 
 
     function startTimer() {

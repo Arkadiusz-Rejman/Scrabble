@@ -6,6 +6,7 @@ import java.util.List;
 public class Player {
 
 
+    private List<Integer> tilesIndexesToChange = new ArrayList<>();
     private String name;
     private Tile[] dock = new Tile[8];
     private Tile selectedTile; //Tego nie uzywam?
@@ -30,6 +31,28 @@ public class Player {
 
     public void setDock(Tile[] tiles) { this.dock = tiles; }
     public void selectTile(Tile tile) { this.selectedTile = tile; }
+
+    public List<Integer> getTilesIndexesToChange() {
+        return tilesIndexesToChange;
+    }
+
+    public void clearTilesIndexesToChange() {
+        tilesIndexesToChange.clear();
+    }
+
+    public List<Tile> getTilesToChange(){
+        List<Tile> tilesToChange = new ArrayList<>();
+        for(Integer index : tilesIndexesToChange){
+            tilesToChange.add(dock[index]);
+        }
+        return tilesToChange;
+    }
+
+    public void setTilesIndexesToChange(List<Integer> tilesIndexes) {
+        tilesIndexesToChange.clear();
+        tilesIndexesToChange.addAll(tilesIndexes);
+
+    }
 
     public String getName() {
         return name;
@@ -61,4 +84,6 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

@@ -183,3 +183,17 @@ body {
     margin-top: 50px;
     margin-left: 50px;
 }
+
+#sackRepresentation {
+    position: relative; /* Ustawienie pozycji na relative, aby móc stosować pozycjonowanie absolutne w kontekście tego diva */
+    text-align: center; /* Wyśrodkowanie tekstu h1 */
+}
+
+#sackRepresentation h1 {
+    position: absolute; /* Ustawienie pozycji na absolutną */
+    top: 60%; /* Przesunięcie do góry o 50% wysokości diva */
+    left: 0; /* Ustawienie na lewo, aby rozciągało się na całej szerokości diva */
+    width: 100%; /* Szerokość 100% diva */
+    transform: translateY(-50%); /* Wycentrowanie tekstu pionowo */
+    margin: 0; /* Usunięcie marginesu, aby tekst był dokładnie wycentrowany */
+}
