@@ -42,8 +42,10 @@
     <!-- PEDLA DO DIV DOCKOW -->
     <%  int offset = 0;%>
     <% for(int i=0;i< GameSession.get().getPlayers().size();i++){%>
+    <% Player acutalPlayer = GameSession.get().getPlayers().get(i); %>
+    <% boolean playerTurn = GameSession.get().getTurn().getPlayerTurn() == acutalPlayer; %>
     <!-- SKRABLE -->
-    <div class="TileSack container_<%=i%>">
+    <div class="TileSack container_<%= i %> <%= playerTurn ? "" : "disabled" %>">
         <% Tile[] tiles = (Tile[]) GameSession.get().getPlayers().get(i).getDock(); %>
         <p class="player_name">Name: <%= GameSession.get().getPlayers().get(i).getName() %></p>
         <p class="player_score">Score: <%= GameSession.get().getPlayers().get(i).getScore() %></p>
@@ -73,7 +75,11 @@
     <!-- TURY -->
     <div id="timer">secodnds left</div>
     <div id="player">Player <%=GameSession.get().getTurn().getPlayerTurn().getName()%> turn</div>
-    <button onclick="refreshPage()" class="button submit">Submit Moves</button>
+    <div class ="button-container">
+        <button onclick="refreshPage()" class="button submit">Submit Moves</button>
+        <button onclick="resign()" class ="button reset">Resign</button>
+    </div>
+
     <div class="MessagesContainer">
         <% List<String> messages = GameSession.get().getMessagesManager().getMessages(); %>
         <div class="messages-list">
@@ -88,6 +94,7 @@
         <h1><%=GameSession.get().getTileSack().getActualSackSize()%></h1>
 
     </div>
+
 
 
 </div>

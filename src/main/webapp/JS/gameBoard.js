@@ -146,13 +146,11 @@ function drop(event) {
     }
 
     if (target.children.length > 0) {
-        alert("already occupied")
         return;
     }
 
     let startCell = document.getElementById("cell_7_7");
     if (startCell && startCell.children.length === 0 && targetId !== "cell_7_7") {
-        alert("First move - you have to start at the middle");
         return;
     }
 
@@ -234,6 +232,24 @@ window.onload = function () {
     startTimer();
 }
 
+function resign(){;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            refreshPage();
+            if (xhr.status === 200) {
+                console.log('Success:', xhr.responseText);
+            } else {
+                console.error('Failed to open resignServletGET');
+            }
+        }
+    };
+
+    xhr.open("GET", "resignServlet", true);
+    xhr.send();
+
+}
+
 async function refreshPage() {
 
     var xhr = new XMLHttpRequest();
@@ -253,6 +269,8 @@ async function refreshPage() {
     xhr.open("GET", "turnManagerServlet", true);
     xhr.send();
 }
+
+
 
 
 

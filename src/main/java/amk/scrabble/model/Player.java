@@ -11,6 +11,7 @@ public class Player {
     private Tile[] dock = new Tile[8];
     private Tile selectedTile; //Tego nie uzywam?
     private int score = 0;
+    private boolean resigned = false;
 
 
     public Player(String name) {
@@ -27,6 +28,14 @@ public class Player {
 
     public int getScore(){
         return score;
+    }
+
+    public boolean isResigned() {
+        return resigned;
+    }
+
+    public void setResigned(boolean resigned) {
+        this.resigned = resigned;
     }
 
     public void setDock(Tile[] tiles) { this.dock = tiles; }

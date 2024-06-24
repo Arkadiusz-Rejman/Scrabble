@@ -152,17 +152,22 @@ public class TurnManagerServlet extends HttpServlet {
         previousPlayer.clearTilesIndexesToChange();
 
         //ZMIANA TURY (NA KONCU)
+
         GameSession.get().changeTurn();
         GameSession.get().getMessagesManager().addMessage("----------------------------------------------------------");
         GameSession.get().getMessagesManager().addMessage("TURA GRACZA " + GameSession.get().getTurn().getPlayerTurn().getName());
 
-        //PRZESYLANIE DANYCH DO JSP);
+        //PRZESYLANIE DANYCH DO NOWEJ TURY);
         request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());
         request.setAttribute("gameBoard", GameSession.get().getGameBoard());
         request.getRequestDispatcher("/JSP/gameBoard.jsp").forward(request, response);
 
         response.setContentType("text/plain");
         response.getWriter().write("Player " + GameSession.get().getTurn().getPlayerTurn().getName() + " turn");
+
+
+
+
 
     }
 

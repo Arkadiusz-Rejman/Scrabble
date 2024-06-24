@@ -34,6 +34,9 @@ public class GameSession {
     }
 
 
+    public int getActivePlayersCount(){
+        return (int) gameSession.players.stream().filter(player -> !player.isResigned()).count();
+    }
 
     public MessagesManager getMessagesManager() { return messagesManager; }
     public void setMessagesManager(MessagesManager messagesManager) { gameSession.messagesManager = messagesManager; }
@@ -47,12 +50,15 @@ public class GameSession {
 
     public void setTurn(Turn turn) { gameSession.turn = turn; }
     public void changeTurn() {
-        int actuallPlayerTurnIndex = gameSession.players.indexOf(gameSession.turn.getPlayerTurn());
-        if(actuallPlayerTurnIndex == gameSession.players.size() - 1){
-            gameSession.setTurn(new Turn(gameSession.players.get(0)));
-        }else {
-            gameSession.setTurn(new Turn(gameSession.players.get(actuallPlayerTurnIndex + 1)));
+        int actualPlayerTurnIndex = gameSession.players.indexOf(gameSession.turn.getPlayerTurn());
+        int nextPlayerIndex = (actualPlayerTurnIndex + 1) % gameSession.players.size();
+
+        while (gameSession.players.get(nextPlayerIndex).isResigned()) {
+            nextPlayerIndex = (nextPlayerIndex + 1) % gameSession.players.size();
         }
+
+        gameSession.setTurn(new Turn(gameSession.players.get(nextPlayerIndex)));
+
 
     }
 }
