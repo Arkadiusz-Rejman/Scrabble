@@ -121,8 +121,8 @@ body {
 .floater{
     float: left;
     align-items: center;
-    margin-right: 100px;
-    margin-left: 50px;
+    margin-right: 30px;
+    margin-left: 30px;
     margin-top: 30px;
     text-align: center;
     padding: 20px;
@@ -174,7 +174,7 @@ body {
 }
 .floater2{
     align-items: center;
-    margin-right: 100px;
+    margin-right: 10px;
     margin-top: 30px;
     text-align: center;
     padding: 20px;
@@ -195,12 +195,14 @@ body {
 
 .gra{
     margin-top: 50px;
-    margin-left: 50px;
+    margin-left: 20px;
 }
 
 #sackRepresentation {
+    margin-top: 10px;
     position: relative; /* Ustawienie pozycji na relative, aby móc stosować pozycjonowanie absolutne w kontekście tego diva */
     text-align: center; /* Wyśrodkowanie tekstu h1 */
+
 }
 
 #sackRepresentation h1 {

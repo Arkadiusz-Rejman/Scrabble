@@ -35,7 +35,7 @@ public class PlayerSelectionServlet extends HttpServlet {
         GameSession.get().setPlayers(playerList);
         GameSession.get().setMessagesManager(new MessagesManager());
         GameSession.get().getMessagesManager().addMessage("----------------------------------------------------------");
-        GameSession.get().getMessagesManager().addMessage("TURA GRACZA " + playerList.get(0).getName());
+        GameSession.get().getMessagesManager().addMessage("PLAYER " + playerList.get(0).getName() + "TURN") ;
 
 
         response.sendRedirect("game");

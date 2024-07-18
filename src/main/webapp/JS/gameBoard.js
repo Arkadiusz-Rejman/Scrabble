@@ -177,8 +177,6 @@ function drop(event) {
     xhr.open("POST", "moveTileServlet", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("tileIndex=" + encodeURIComponent(tileIndex) + "&targetID=" + encodeURIComponent(targetId));
-
-
 }
 
 //Timer tury dla gracza
@@ -189,36 +187,11 @@ window.onload = function () {
     var timerElement = document.getElementById("timer");
 
 
-    //Średnio wiem jaki to miało cel, dlatego zakomentowałem
-    // var playerElement = document.getElementById("player");
-    //
-    // async function rednerDocks() {
-    //
-    //     var xhr = new XMLHttpRequest();
-    //
-    //     xhr.onreadystatechange = function () {
-    //         if (xhr.readyState === XMLHttpRequest.DONE) {
-    //             location.reload();
-    //             if (xhr.status === 200) {
-    //                 playerElement.innerHTML = xhr.responseText;
-    //
-    //             } else {
-    //                 console.error('Nie udało się pobrać wartości docków');
-    //             }
-    //         }
-    //     };
-    //
-    //     xhr.open("GET", "dockRednerServlet", true);
-    //     xhr.send();
-    // }
-
-
     function startTimer() {
         var timer = setInterval(function () {
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 timeLeft = 180;
-
                 refreshPage();
                 startTimer();
 
@@ -230,24 +203,6 @@ window.onload = function () {
     }
 
     startTimer();
-}
-
-function resign(){;
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            refreshPage();
-            if (xhr.status === 200) {
-                console.log('Success:', xhr.responseText);
-            } else {
-                console.error('Failed to open resignServletGET');
-            }
-        }
-    };
-
-    xhr.open("GET", "resignServlet", true);
-    xhr.send();
-
 }
 
 async function refreshPage() {
@@ -269,7 +224,9 @@ async function refreshPage() {
     xhr.open("GET", "turnManagerServlet", true);
     xhr.send();
 }
-
+function noBack() {
+    window.history.forward();
+}
 
 
 

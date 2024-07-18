@@ -77,7 +77,7 @@
     <div id="player">Player <%=GameSession.get().getTurn().getPlayerTurn().getName()%> turn</div>
     <div class ="button-container">
         <button onclick="refreshPage()" class="button submit">Submit Moves</button>
-        <button onclick="resign()" class ="button reset">Resign</button>
+        <button  class ="button" onclick="refreshPage()" >Change Tiles</button>
     </div>
 
     <div class="MessagesContainer">
@@ -94,7 +94,9 @@
         <h1><%=GameSession.get().getTileSack().getActualSackSize()%></h1>
 
     </div>
-
+    <form action="resignServlet" method="post">
+        <input class="button"  type="submit" value="Resign">
+    </form>
 
 
 </div>

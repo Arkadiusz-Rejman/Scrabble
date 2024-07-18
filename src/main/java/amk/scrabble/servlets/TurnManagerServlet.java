@@ -119,11 +119,11 @@ public class TurnManagerServlet extends HttpServlet {
 
         // FINALNA OBSŁUGA POPRAWNOŚCI WPISANYCH/STAWIANYCH SŁÓW
         if (!incorrectWords.isEmpty() || soloWordsFound || !wordsPlacedIncorrectly.isEmpty()) {
-            if(!incorrectWords.isEmpty()) GameSession.get().getMessagesManager().addMessage("Nie uznano słów: " + rejectedWordsString);
-            if(soloWordsFound) GameSession.get().getMessagesManager().addMessage("Znaleziono pojedyncze litery");
-            if(!wordsPlacedIncorrectly.isEmpty()) GameSession.get().getMessagesManager().addMessage("Żle umiejscowiono litery");
+            if(!incorrectWords.isEmpty()) GameSession.get().getMessagesManager().addMessage("Words rejected: " + rejectedWordsString);
+            if(soloWordsFound) GameSession.get().getMessagesManager().addMessage("Letters found");
+            if(!wordsPlacedIncorrectly.isEmpty()) GameSession.get().getMessagesManager().addMessage("Wrong letters placement");
 
-            GameSession.get().getMessagesManager().addMessage("TURA ZOSTAJE ANULOWANA!");
+            GameSession.get().getMessagesManager().addMessage("TURN IS CANCELED!");
 
             for (IndexesHolder indexesHolder : boardIndexesToAdd) {
                 Tile tile = GameSession.get().getGameBoard().getBoardField(indexesHolder.getI1(), indexesHolder.getI2()).getTileOnField();
@@ -131,11 +131,11 @@ public class TurnManagerServlet extends HttpServlet {
                 previousPlayer.getDock()[indexesHolder.getStoredIndex()] = tile;
             }
         } else {
-            if(!correctWords.isEmpty()) GameSession.get().getMessagesManager().addMessage("Uznano słowa: " + acceptedWordsString);
+            if(!correctWords.isEmpty()) GameSession.get().getMessagesManager().addMessage("Words approved: " + acceptedWordsString);
             for (Word correctWord : correctWords) totalPoints += calculateWordScore(correctWord, boardIndexesToAdd);
 
             previousPlayer.addPoints(totalPoints);
-            GameSession.get().getMessagesManager().addMessage("W tej rundzie uzyskano " + totalPoints + "p.");
+            GameSession.get().getMessagesManager().addMessage("Points gained: " + totalPoints + "p.");
         }
 
         //ZAPISANIE ZMIAN W GAME BOARD
@@ -155,7 +155,7 @@ public class TurnManagerServlet extends HttpServlet {
 
         GameSession.get().changeTurn();
         GameSession.get().getMessagesManager().addMessage("----------------------------------------------------------");
-        GameSession.get().getMessagesManager().addMessage("TURA GRACZA " + GameSession.get().getTurn().getPlayerTurn().getName());
+        GameSession.get().getMessagesManager().addMessage("PLAYER " + GameSession.get().getTurn().getPlayerTurn().getName() + "TURN");
 
         //PRZESYLANIE DANYCH DO NOWEJ TURY);
         request.setAttribute("tiles", GameSession.get().getTurn().getPlayerTurn().getDock());

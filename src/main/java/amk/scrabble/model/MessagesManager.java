@@ -9,7 +9,7 @@ public class MessagesManager {
 
     public MessagesManager() {
         messages = new ArrayList<>();
-        messages.add("Gra sie rozpoczyna. Powodzenia!");
+        messages.add("Game started. Have fun!");
 
     }
 
