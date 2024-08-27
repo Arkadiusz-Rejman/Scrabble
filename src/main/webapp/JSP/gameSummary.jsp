@@ -17,8 +17,16 @@
     <%
         List<Player> players = GameSession.get().getPlayers().stream().sorted(Comparator
                 .comparingInt(Player::getScore).reversed()).collect(Collectors.toList());
+
         if (!players.isEmpty()) {
+
+            DBManager dbManager = new DBManager();
+            for(Player player : players){
+                dbManager.addscoretoleaderboard(player.getName(), player.getScore());
+            }
+
     %>
+
     <div class="player first-place">
         <p>Player: <%= players.get(0).getName() %></p>
         <p>Score: <%= players.get(0).getScore() %></p>
