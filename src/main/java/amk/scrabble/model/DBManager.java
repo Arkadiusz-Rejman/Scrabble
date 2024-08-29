@@ -58,8 +58,8 @@ public class DBManager {
                 //dodaj do pobranych
                 String sql2 = "UPDATE score SET score = ? WHERE username = ?";
                 preparedStatement = connection.prepareStatement(sql2);
+                int newScore = Math.max(gamescore, resultScore);
 
-                int newScore = resultScore + gamescore;
                 preparedStatement.setInt(1, newScore);
                 preparedStatement.setString(2, resultUser);
                 int rowsUpdated = preparedStatement.executeUpdate();
